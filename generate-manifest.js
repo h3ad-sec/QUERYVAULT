@@ -68,15 +68,15 @@ fs.writeFileSync(
 );
 console.log(`detections-manifest.json — ${detections.length} entries`);
 
-// ── runbook-manifest.json ─────────────────────────────────────────────────────
-const runbookCategories = ['auth', 'network', 'endpoint', 'cloud'];
-const runbook = [];
+// ── quicktrace-manifest.json ──────────────────────────────────────────────────
+const quicktraceCategories = ['auth', 'network', 'endpoint', 'cloud'];
+const quicktrace = [];
 
-for (const cat of runbookCategories) {
-  const dir = path.join(ROOT, 'runbook', cat);
+for (const cat of quicktraceCategories) {
+  const dir = path.join(ROOT, 'quicktrace', cat);
   for (const filePath of walkDir(dir)) {
     const raw = parseYaml(filePath);
-    runbook.push({
+    quicktrace.push({
       title:       raw.title       || '',
       category:    raw.category    || cat,
       platform:    raw.platform    || '',
@@ -87,10 +87,10 @@ for (const cat of runbookCategories) {
 }
 
 fs.writeFileSync(
-  path.join(ROOT, 'runbook-manifest.json'),
-  JSON.stringify(runbook, null, 2)
+  path.join(ROOT, 'quicktrace-manifest.json'),
+  JSON.stringify(quicktrace, null, 2)
 );
-console.log(`runbook-manifest.json — ${runbook.length} entries`);
+console.log(`quicktrace-manifest.json — ${quicktrace.length} entries`);
 
 // ── pulse-manifest.json ───────────────────────────────────────────────────────
 const pulseDir = path.join(ROOT, 'pulse');
