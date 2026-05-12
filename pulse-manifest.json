@@ -1,0 +1,11 @@
+[
+  {
+    "title": "CVE-2025-29824 — Windows CLFS Privilege Escalation",
+    "threat": "Storm-2460 / RansomEXX",
+    "cve": "CVE-2025-29824",
+    "date": "2025-04-08",
+    "platform": "kql",
+    "description": "Detects exploitation of Windows CLFS driver vulnerability used for LPE by Storm-2460 threat actor",
+    "file": "pulse/2025/CVE-2025-29824.yaml"
+  }
+]

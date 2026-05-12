@@ -1,0 +1,21 @@
+title: Suspicious Scheduled Task Creation
+tactic: TA0003
+tacticName: Persistence
+technique: T1053.005
+techniqueName: Scheduled Task
+description: Detects scheduled task creation via schtasks.exe with suspicious arguments pointing to temp or user-writable paths
+query: |
+  DeviceProcessEvents
+  | where Timestamp > ago(24h)
+  | where FileName =~ "schtasks.exe"
+  | where ProcessCommandLine has "/create"
+  | where ProcessCommandLine has_any (
+      "\\Temp\\", "\\AppData\\", "\\ProgramData\\", "\\Users\\Public\\",
+      "powershell", "cmd.exe", "wscript", "cscript", "mshta", "rundll32",
+      "regsvr32", "certutil", "bitsadmin", "%TEMP%", "%APPDATA%"
+  )
+  | extend TaskName = extract(@"/[Tt][Nn]\s+[\""]?([^/\""\s]+)", 1, ProcessCommandLine)
+  | extend TaskRun  = extract(@"/[Tt][Rr]\s+[\""]?([^/\""\n]+)", 1, ProcessCommandLine)
+  | project Timestamp, DeviceName, AccountName, ProcessCommandLine,
+            TaskName, TaskRun, InitiatingProcessFileName, InitiatingProcessCommandLine
+  | order by Timestamp desc

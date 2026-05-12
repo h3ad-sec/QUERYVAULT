@@ -1,0 +1,23 @@
+title: DNS Tunneling Detection
+tactic: TA0011
+tacticName: Command and Control
+technique: T1071.004
+techniqueName: DNS
+description: Detects unusually long DNS query names or high query volumes to a single domain indicative of DNS-based data exfiltration or C2 tunneling
+query: |
+  dataset = xdr_data
+  | filter event_type = ENUM.EVENT_TYPE_DNS
+      and dns_query_name != null
+  | alter query_len = string_length(dns_query_name)
+  | alter apex_domain = arrayindex(regextract(dns_query_name, "([^.]+\.[^.]+)$"), 0)
+  | filter query_len > 50
+      or (
+          apex_domain != null
+          and dns_query_type in ("A", "TXT", "CNAME")
+      )
+  | comp count(dns_query_name) as query_count,
+           max(query_len) as max_query_len,
+           dc(dns_query_name) as unique_subdomains
+      by agent_hostname, apex_domain
+  | filter query_count > 100 or unique_subdomains > 50 or max_query_len > 100
+  | sort desc query_count

@@ -1,0 +1,15 @@
+title: Suspicious Encoded PowerShell Execution
+tactic: TA0002
+tacticName: Execution
+technique: T1059.001
+techniqueName: PowerShell
+description: Detects base64-encoded PowerShell commands executed via DeviceProcessEvents in Microsoft Defender for Endpoint
+query: |
+  DeviceProcessEvents
+  | where Timestamp > ago(24h)
+  | where FileName =~ "powershell.exe"
+      or FileName =~ "pwsh.exe"
+  | where ProcessCommandLine has_any ("-EncodedCommand", "-enc ", "-ec ", "-EnC ", "-eNc")
+  | extend DecodedHint = extract(@"-[Ee][Nn][Cc][oO]?[dD]?[eE]?[dD]?[Cc]?[oO]?[mM]?[mM]?[aA]?[nN]?[dD]?\s+([A-Za-z0-9+/=]{20,})", 1, ProcessCommandLine)
+  | project Timestamp, DeviceName, AccountName, ProcessCommandLine, DecodedHint, InitiatingProcessFileName, InitiatingProcessCommandLine
+  | order by Timestamp desc

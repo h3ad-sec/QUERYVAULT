@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Suspicious Encoded PowerShell Execution",
+    "tactic": "TA0002",
+    "tacticName": "Execution",
+    "technique": "T1059.001",
+    "techniqueName": "PowerShell",
+    "description": "Detects base64-encoded PowerShell commands executed via DeviceProcessEvents in Microsoft Defender for Endpoint",
+    "platform": "kql",
+    "file": "detections/kql/ps-encoded-execution.yaml"
+  },
+  {
+    "title": "LSASS Memory Access",
+    "tactic": "TA0006",
+    "tacticName": "Credential Access",
+    "technique": "T1003.001",
+    "techniqueName": "LSASS Memory",
+    "description": "Identifies processes opening a handle to LSASS with suspicious access rights indicative of credential dumping",
+    "platform": "kql",
+    "file": "detections/kql/lsass-memory-access.yaml"
+  },
+  {
+    "title": "Suspicious Scheduled Task Creation",
+    "tactic": "TA0003",
+    "tacticName": "Persistence",
+    "technique": "T1053.005",
+    "techniqueName": "Scheduled Task",
+    "description": "Detects scheduled task creation via schtasks.exe with suspicious arguments pointing to temp or user-writable paths",
+    "platform": "kql",
+    "file": "detections/kql/scheduled-task-creation.yaml"
+  },
+  {
+    "title": "Mimikatz Credential Harvesting",
+    "tactic": "TA0006",
+    "tacticName": "Credential Access",
+    "technique": "T1003.001",
+    "techniqueName": "LSASS Memory",
+    "description": "Detects Mimikatz sekurlsa module usage by matching known command-line patterns in process creation events",
+    "platform": "sigma",
+    "file": "detections/sigma/mimikatz-sekurlsa.yaml"
+  },
+  {
+    "title": "PsExec Remote Execution",
+    "tactic": "TA0008",
+    "tacticName": "Lateral Movement",
+    "technique": "T1021.002",
+    "techniqueName": "SMB/Windows Admin Shares",
+    "description": "Detects PsExec usage for remote lateral movement by identifying PSEXESVC service creation in Windows System event logs",
+    "platform": "sigma",
+    "file": "detections/sigma/psexec-lateral-movement.yaml"
+  },
+  {
+    "title": "DNS Tunneling Detection",
+    "tactic": "TA0011",
+    "tacticName": "Command and Control",
+    "technique": "T1071.004",
+    "techniqueName": "DNS",
+    "description": "Detects unusually long DNS query names or high query volumes to a single domain indicative of DNS-based data exfiltration or C2 tunneling",
+    "platform": "xql",
+    "file": "detections/xql/dns-tunneling.yaml"
+  },
+  {
+    "title": "Periodic Network Beaconing Activity",
+    "tactic": "TA0011",
+    "tacticName": "Command and Control",
+    "technique": "T1071.001",
+    "techniqueName": "Web Protocols",
+    "description": "Identifies hosts making highly regular outbound HTTP/S connections suggesting C2 beaconing behavior based on low inter-request deviation",
+    "platform": "xql",
+    "file": "detections/xql/network-beaconing.yaml"
+  }
+]

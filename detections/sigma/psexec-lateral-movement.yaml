@@ -1,0 +1,28 @@
+title: PsExec Remote Execution
+tactic: TA0008
+tacticName: Lateral Movement
+technique: T1021.002
+techniqueName: SMB/Windows Admin Shares
+description: Detects PsExec usage for remote lateral movement by identifying PSEXESVC service creation in Windows System event logs
+query: |
+  title: PsExec Remote Execution via Service Creation
+  id: 42c575ea-e41b-4a92-a077-acbf84c91ba8
+  status: stable
+  author: H3AD-SEC Detection Engineering
+  date: 2026/05/13
+  logsource:
+    product: windows
+    service: system
+  detection:
+    selection:
+      Provider_Name: 'Service Control Manager'
+      EventID: 7045
+      ServiceName: 'PSEXESVC'
+    condition: selection
+  falsepositives:
+    - Legitimate administrative use of PsExec by IT teams
+    - Authorized red team or penetration testing activity
+  level: high
+  tags:
+    - attack.lateral_movement
+    - attack.t1021.002

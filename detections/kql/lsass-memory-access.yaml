@@ -1,0 +1,21 @@
+title: LSASS Memory Access
+tactic: TA0006
+tacticName: Credential Access
+technique: T1003.001
+techniqueName: LSASS Memory
+description: Identifies processes opening a handle to LSASS with suspicious access rights indicative of credential dumping
+query: |
+  DeviceEvents
+  | where Timestamp > ago(24h)
+  | where ActionType == "OpenProcessApiCall"
+  | where FileName =~ "lsass.exe"
+  | where not(InitiatingProcessFileName has_any (
+      "MsMpEng.exe", "csrss.exe", "wininit.exe", "services.exe",
+      "svchost.exe", "lsm.exe", "taskmgr.exe", "procexp.exe", "procexp64.exe"
+  ))
+  | extend GrantedAccess = tostring(AdditionalFields.GrantedAccess)
+  | where GrantedAccess in ("0x1010", "0x1410", "0x147a", "0x143a", "0x1fffff", "0x1f3fff")
+      or GrantedAccess has_any ("0x10", "0x40")
+  | project Timestamp, DeviceName, AccountName, InitiatingProcessFileName,
+            InitiatingProcessCommandLine, GrantedAccess, InitiatingProcessFolderPath
+  | order by Timestamp desc

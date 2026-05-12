@@ -1,0 +1,11 @@
+title: Failed Logon Review
+category: authentication
+platform: kql
+description: Review failed logon attempts for a user or endpoint within a time window
+query: |
+  SecurityEvent
+  | where EventID == 4625
+  | where TimeGenerated > ago(24h)
+  | summarize FailedAttempts = count(), Accounts = make_set(TargetUserName), IPs = make_set(IpAddress) by Computer
+  | where FailedAttempts > 5
+  | order by FailedAttempts desc

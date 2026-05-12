@@ -1,0 +1,21 @@
+title: Periodic Network Beaconing Activity
+tactic: TA0011
+tacticName: Command and Control
+technique: T1071.001
+techniqueName: Web Protocols
+description: Identifies hosts making highly regular outbound HTTP/S connections suggesting C2 beaconing behavior based on low inter-request deviation
+query: |
+  dataset = xdr_data
+  | filter event_type = ENUM.EVENT_TYPE_NETWORK
+      and action_remote_port in (80, 443, 8080, 8443)
+      and action_network_creation_time != null
+  | alter hour_bucket = to_string(format_timestamp("%Y-%m-%d %H:00", action_network_creation_time))
+  | fields agent_hostname, action_remote_ip, action_remote_port,
+            action_remote_domain, hour_bucket, action_network_creation_time
+  | comp count(action_network_creation_time) as connection_count,
+           dc(hour_bucket) as active_hours
+      by agent_hostname, action_remote_ip, action_remote_domain, action_remote_port
+  | filter connection_count > 20 and active_hours > 4
+  | alter connections_per_hour = divide(connection_count, active_hours)
+  | filter connections_per_hour >= 4
+  | sort desc connection_count

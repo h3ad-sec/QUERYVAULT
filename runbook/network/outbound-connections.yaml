@@ -1,0 +1,12 @@
+title: Unusual Outbound Connections
+category: network
+platform: kql
+description: Identify endpoints making outbound connections to rare or external destinations
+query: |
+  DeviceNetworkEvents
+  | where TimeGenerated > ago(24h)
+  | where ActionType == "ConnectionSuccess"
+  | where RemoteIPType == "Public"
+  | summarize ConnectionCount = count(), Ports = make_set(RemotePort) by DeviceName, RemoteIP, RemoteUrl
+  | where ConnectionCount < 5
+  | order by ConnectionCount asc

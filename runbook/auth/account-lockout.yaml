@@ -1,0 +1,10 @@
+title: Account Lockout Investigation
+category: authentication
+platform: kql
+description: Identify source of account lockouts for a specific user
+query: |
+  SecurityEvent
+  | where EventID == 4740
+  | where TimeGenerated > ago(7d)
+  | project TimeGenerated, TargetUserName, Computer, SubjectUserName
+  | order by TimeGenerated desc
