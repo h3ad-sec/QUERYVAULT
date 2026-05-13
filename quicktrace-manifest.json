@@ -1,14 +1,14 @@
 [
   {
     "title": "Failed Logon Review",
-    "category": "authentication",
+    "category": "auth",
     "platform": "kql",
     "description": "Review failed logon attempts for a user or endpoint within a time window",
     "file": "quicktrace/auth/failed-logon-review.yaml"
   },
   {
     "title": "Account Lockout Investigation",
-    "category": "authentication",
+    "category": "auth",
     "platform": "kql",
     "description": "Identify source of account lockouts for a specific user",
     "file": "quicktrace/auth/account-lockout.yaml"

@@ -1,5 +1,5 @@
 title: Account Lockout Investigation
-category: authentication
+category: auth
 platform: kql
 description: Identify source of account lockouts for a specific user
 query: |

@@ -1,5 +1,5 @@
 title: Failed Logon Review
-category: authentication
+category: auth
 platform: kql
 description: Review failed logon attempts for a user or endpoint within a time window
 query: |
