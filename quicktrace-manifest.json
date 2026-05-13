@@ -4,27 +4,27 @@
     "category": "authentication",
     "platform": "kql",
     "description": "Review failed logon attempts for a user or endpoint within a time window",
-    "file": "runbook/auth/failed-logon-review.yaml"
+    "file": "quicktrace/auth/failed-logon-review.yaml"
   },
   {
     "title": "Account Lockout Investigation",
     "category": "authentication",
     "platform": "kql",
     "description": "Identify source of account lockouts for a specific user",
-    "file": "runbook/auth/account-lockout.yaml"
+    "file": "quicktrace/auth/account-lockout.yaml"
   },
   {
     "title": "Unusual Outbound Connections",
     "category": "network",
     "platform": "kql",
     "description": "Identify endpoints making outbound connections to rare or external destinations",
-    "file": "runbook/network/outbound-connections.yaml"
+    "file": "quicktrace/network/outbound-connections.yaml"
   },
   {
     "title": "Process Tree Review",
     "category": "endpoint",
     "platform": "kql",
     "description": "Build process ancestry chain for a suspicious process on a specific device",
-    "file": "runbook/endpoint/process-tree.yaml"
+    "file": "quicktrace/endpoint/process-tree.yaml"
   }
 ]
