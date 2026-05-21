@@ -1,0 +1,13 @@
+title: Suspicious PowerShell EncodedCommand Activity
+category: endpoint
+platform: xql
+description: Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line
+query: |
+  dataset = xdr_data
+  | filter event_type = ENUM.PROCESS
+  | filter actor_process_image_name = "powershell.exe"
+  | filter actor_process_command_line contains "-enc"
+      or actor_process_command_line contains "-encodedcommand"
+  | fields _time, agent_hostname, actor_process_image_name, actor_process_command_line, causality_actor_process_image_name, causality_actor_process_command_line
+  | sort desc _time
+  | dedup actor_process_command_line

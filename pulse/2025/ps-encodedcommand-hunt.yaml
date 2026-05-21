@@ -1,0 +1,13 @@
+title: Suspicious PowerShell EncodedCommand Activity
+date: 2026-05-21
+platform: xql
+description: Hunt for PowerShell encoded command execution — common obfuscation technique used by loaders, stagers, and post-exploitation frameworks
+query: |
+  dataset = xdr_data
+  | filter event_type = ENUM.PROCESS
+  | filter actor_process_image_name = "powershell.exe"
+  | filter actor_process_command_line contains "-enc"
+      or actor_process_command_line contains "-encodedcommand"
+  | fields _time, agent_hostname, actor_process_image_name, actor_process_command_line, causality_actor_process_image_name, causality_actor_process_command_line
+  | sort desc _time
+  | dedup actor_process_command_line

@@ -26,5 +26,12 @@
     "platform": "kql",
     "description": "Build process ancestry chain for a suspicious process on a specific device",
     "file": "quicktrace/endpoint/process-tree.yaml"
+  },
+  {
+    "title": "Suspicious PowerShell EncodedCommand Activity",
+    "category": "endpoint",
+    "platform": "xql",
+    "description": "Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line",
+    "file": "quicktrace/endpoint/ps-encodedcommand.yaml"
   }
 ]
