@@ -1,0 +1,11 @@
+title: Network Story — Outbound to IP List
+category: network
+platform: xql
+description: Network activity to any of a list of suspicious remote IPs — use for bulk IOC sweeps
+query: |
+  config case_sensitive = true
+  | preset = network_story
+  | filter action_remote_ip in (
+      "<ip_1>",
+      "<ip_2>"
+  )

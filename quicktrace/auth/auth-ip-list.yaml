@@ -1,0 +1,11 @@
+title: Auth Story — IP List
+category: auth
+platform: xql
+description: All auth events from a list of suspicious IPs — use for IOC-based user pivoting
+query: |
+  config case_sensitive = true
+  | preset = authentication_story
+  | filter action_local_ip in (
+      "<ip_1>",
+      "<ip_2>"
+  )

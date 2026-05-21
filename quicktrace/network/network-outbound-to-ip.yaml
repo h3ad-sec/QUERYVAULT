@@ -1,0 +1,8 @@
+title: Network Story — Outbound to IP
+category: network
+platform: xql
+description: All network events to a specific remote IP — use for C2, exfil, or lateral movement investigation
+query: |
+  config case_sensitive = true
+  | preset = network_story
+  | filter action_remote_ip contains "<remote_ip>"

@@ -1,0 +1,9 @@
+title: Auth Story — User Failure Triage
+category: auth
+platform: xql
+description: Failed auth attempts for a specific user — use for brute force or credential stuffing investigation
+query: |
+  config case_sensitive = true
+  | preset = authentication_story
+  | filter auth_identity contains "<username>"
+  | filter auth_outcome contains "FAILED"
