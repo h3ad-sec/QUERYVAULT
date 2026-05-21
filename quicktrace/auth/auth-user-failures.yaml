@@ -1,9 +1,22 @@
 title: Auth Story — User Failure Triage
 category: auth
-platform: xql
+platforms: xql,kql,spl
 description: Failed auth attempts for a specific user — use for brute force or credential stuffing investigation
-query: |
-  config case_sensitive = true
-  | preset = authentication_story
-  | filter auth_identity contains "<username>"
-  | filter auth_outcome contains "FAILED"
+queries:
+  xql: |
+    config case_sensitive = true
+    | preset = authentication_story
+    | filter auth_identity contains "<username>"
+    | filter auth_outcome contains "FAILED"
+  kql: |
+    SigninLogs
+    | where UserPrincipalName contains "<username>"
+    | where ResultType != "0"
+    | project TimeGenerated, UserPrincipalName, IPAddress, ResultType, ResultDescription, AppDisplayName
+    | order by TimeGenerated desc
+  spl: |
+    index=* sourcetype="azure:aad:signin"
+        userPrincipalName="*<username>*"
+        resultType!="0"
+    | table _time, userPrincipalName, ipAddress, resultType, resultDescription
+    | sort - _time

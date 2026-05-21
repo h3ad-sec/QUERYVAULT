@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-// Simple line-based YAML parser — reads scalar fields, stops at `query: |`
+// Simple line-based YAML parser — reads scalar fields, stops at `query: |` or `queries:`
 function parseYaml(filePath) {
   const lines = fs.readFileSync(filePath, 'utf8').split('\n');
   const obj = {};
   for (const line of lines) {
-    if (/^query:\s*\|/.test(line)) break;
+    if (/^query\s*:\s*\|/.test(line)) break;
+    if (/^queries\s*:/.test(line)) break;
     const match = line.match(/^([a-zA-Z_]+):\s*(.*)/);
     if (match) {
       const key = match[1].trim();
@@ -79,7 +80,7 @@ for (const cat of quicktraceCategories) {
     quicktrace.push({
       title:       raw.title       || '',
       category:    raw.category    || cat,
-      platform:    raw.platform    || '',
+      platforms:   raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
       description: raw.description || '',
       file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
     });

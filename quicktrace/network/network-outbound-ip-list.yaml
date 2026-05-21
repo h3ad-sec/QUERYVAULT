@@ -1,11 +1,22 @@
 title: Network Story — Outbound to IP List
 category: network
-platform: xql
+platforms: xql,kql,spl
 description: Network activity to any of a list of suspicious remote IPs — use for bulk IOC sweeps
-query: |
-  config case_sensitive = true
-  | preset = network_story
-  | filter action_remote_ip in (
-      "<ip_1>",
-      "<ip_2>"
-  )
+queries:
+  xql: |
+    config case_sensitive = true
+    | preset = network_story
+    | filter action_remote_ip in (
+        "<ip_1>",
+        "<ip_2>"
+    )
+  kql: |
+    DeviceNetworkEvents
+    | where RemoteIP in ("<ip_1>", "<ip_2>")
+    | project TimeGenerated, DeviceName, LocalIP, RemoteIP, RemotePort, Protocol, InitiatingProcessFileName
+    | order by TimeGenerated desc
+  spl: |
+    index=* sourcetype="sysmon" EventCode=3
+        (DestinationIp="<ip_1>" OR DestinationIp="<ip_2>")
+    | table _time, ComputerName, SourceIp, DestinationIp, DestinationPort, Image
+    | sort - _time

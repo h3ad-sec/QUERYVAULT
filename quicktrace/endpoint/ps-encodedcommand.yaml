@@ -1,13 +1,28 @@
 title: Suspicious PowerShell EncodedCommand Activity
 category: endpoint
-platform: xql
+platforms: xql,kql,spl
 description: Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line
-query: |
-  dataset = xdr_data
-  | filter event_type = ENUM.PROCESS
-  | filter actor_process_image_name = "powershell.exe"
-  | filter actor_process_command_line contains "-enc"
-      or actor_process_command_line contains "-encodedcommand"
-  | fields _time, agent_hostname, actor_process_image_name, actor_process_command_line, causality_actor_process_image_name, causality_actor_process_command_line
-  | sort desc _time
-  | dedup actor_process_command_line
+queries:
+  xql: |
+    dataset = xdr_data
+    | filter event_type = ENUM.PROCESS
+    | filter actor_process_image_name = "powershell.exe"
+    | filter actor_process_command_line contains "-enc"
+        or actor_process_command_line contains "-encodedcommand"
+    | fields _time, agent_hostname, actor_process_image_name, actor_process_command_line, causality_actor_process_image_name, causality_actor_process_command_line
+    | sort desc _time
+    | dedup actor_process_command_line
+  kql: |
+    DeviceProcessEvents
+    | where FileName =~ "powershell.exe"
+    | where ProcessCommandLine has "-enc" or ProcessCommandLine has "-encodedcommand"
+    | project Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine
+    | summarize Count = count() by ProcessCommandLine, DeviceName, InitiatingProcessFileName
+    | order by Count desc
+  spl: |
+    index=* sourcetype="sysmon" EventCode=1
+        Image="*powershell.exe"
+        (CommandLine="*-enc *" OR CommandLine="*-encodedcommand *")
+    | dedup CommandLine
+    | table _time, ComputerName, Image, CommandLine, ParentImage, ParentCommandLine
+    | sort - _time

@@ -1,8 +1,19 @@
 title: Network Story — Outbound to IP
 category: network
-platform: xql
+platforms: xql,kql,spl
 description: All network events to a specific remote IP — use for C2, exfil, or lateral movement investigation
-query: |
-  config case_sensitive = true
-  | preset = network_story
-  | filter action_remote_ip contains "<remote_ip>"
+queries:
+  xql: |
+    config case_sensitive = true
+    | preset = network_story
+    | filter action_remote_ip contains "<remote_ip>"
+  kql: |
+    DeviceNetworkEvents
+    | where RemoteIP == "<remote_ip>"
+    | project TimeGenerated, DeviceName, LocalIP, RemoteIP, RemotePort, Protocol, InitiatingProcessFileName, InitiatingProcessCommandLine
+    | order by TimeGenerated desc
+  spl: |
+    index=* sourcetype="sysmon" EventCode=3
+        DestinationIp="<remote_ip>"
+    | table _time, ComputerName, SourceIp, DestinationIp, DestinationPort, Image, CommandLine
+    | sort - _time

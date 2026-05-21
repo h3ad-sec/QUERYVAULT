@@ -1,9 +1,22 @@
 title: Auth Story — User from Specific IP
 category: auth
-platform: xql
+platforms: xql,kql,spl
 description: Full auth history for a user and source IP — confirms presence, pivots on outcome
-query: |
-  config case_sensitive = true
-  | preset = authentication_story
-  | filter auth_identity contains "<username>"
-  | filter action_local_ip contains "<source_ip>"
+queries:
+  xql: |
+    config case_sensitive = true
+    | preset = authentication_story
+    | filter auth_identity contains "<username>"
+    | filter action_local_ip contains "<source_ip>"
+  kql: |
+    SigninLogs
+    | where UserPrincipalName contains "<username>"
+    | where IPAddress == "<source_ip>"
+    | project TimeGenerated, UserPrincipalName, IPAddress, ResultType, ResultDescription, AppDisplayName, Location
+    | order by TimeGenerated desc
+  spl: |
+    index=* sourcetype="azure:aad:signin"
+        userPrincipalName="*<username>*"
+        ipAddress="<source_ip>"
+    | table _time, userPrincipalName, ipAddress, resultType, resultDescription, appDisplayName
+    | sort - _time

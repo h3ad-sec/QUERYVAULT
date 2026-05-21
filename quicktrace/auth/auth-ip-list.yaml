@@ -1,11 +1,22 @@
 title: Auth Story — IP List
 category: auth
-platform: xql
+platforms: xql,kql,spl
 description: All auth events from a list of suspicious IPs — use for IOC-based user pivoting
-query: |
-  config case_sensitive = true
-  | preset = authentication_story
-  | filter action_local_ip in (
-      "<ip_1>",
-      "<ip_2>"
-  )
+queries:
+  xql: |
+    config case_sensitive = true
+    | preset = authentication_story
+    | filter action_local_ip in (
+        "<ip_1>",
+        "<ip_2>"
+    )
+  kql: |
+    SigninLogs
+    | where IPAddress in ("<ip_1>", "<ip_2>")
+    | project TimeGenerated, UserPrincipalName, IPAddress, ResultType, ResultDescription, AppDisplayName
+    | order by TimeGenerated desc
+  spl: |
+    index=* sourcetype="azure:aad:signin"
+        (ipAddress="<ip_1>" OR ipAddress="<ip_2>")
+    | table _time, userPrincipalName, ipAddress, resultType, appDisplayName
+    | sort - _time
