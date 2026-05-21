@@ -1,6 +1,7 @@
 title: Suspicious PowerShell EncodedCommand Activity
 category: endpoint
 platforms: xql,kql,spl
+verified: xql
 description: Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line
 queries:
   xql: |

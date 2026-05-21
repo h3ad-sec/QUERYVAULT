@@ -81,6 +81,7 @@ for (const cat of quicktraceCategories) {
       title:       raw.title       || '',
       category:    raw.category    || cat,
       platforms:   raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
+      verified:    raw.verified  ? raw.verified.split(',').map(p => p.trim()) : [],
       description: raw.description || '',
       file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
     });

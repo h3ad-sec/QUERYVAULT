@@ -1,6 +1,7 @@
 title: Auth Story — User from Specific IP
 category: auth
 platforms: xql,kql,spl
+verified: xql
 description: Full auth history for a user and source IP — confirms presence, pivots on outcome
 queries:
   xql: |

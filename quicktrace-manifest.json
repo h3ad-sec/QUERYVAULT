@@ -3,6 +3,7 @@
     "title": "Auth Story — User from Specific IP",
     "category": "auth",
     "platforms": ["xql", "kql", "spl"],
+    "verified": ["xql"],
     "description": "Full auth history for a user and source IP — confirms presence, pivots on outcome",
     "file": "quicktrace/auth/auth-user-from-ip.yaml"
   },
@@ -10,6 +11,7 @@
     "title": "Auth Story — IP List",
     "category": "auth",
     "platforms": ["xql", "kql", "spl"],
+    "verified": ["xql"],
     "description": "All auth events from a list of suspicious IPs — use for IOC-based user pivoting",
     "file": "quicktrace/auth/auth-ip-list.yaml"
   },
@@ -17,6 +19,7 @@
     "title": "Auth Story — User Failure Triage",
     "category": "auth",
     "platforms": ["xql", "kql", "spl"],
+    "verified": ["xql"],
     "description": "Failed auth attempts for a specific user — use for brute force or credential stuffing investigation",
     "file": "quicktrace/auth/auth-user-failures.yaml"
   },
@@ -24,6 +27,7 @@
     "title": "Network Story — Outbound to IP",
     "category": "network",
     "platforms": ["xql", "kql", "spl"],
+    "verified": ["xql"],
     "description": "All network events to a specific remote IP — use for C2, exfil, or lateral movement investigation",
     "file": "quicktrace/network/network-outbound-to-ip.yaml"
   },
@@ -31,6 +35,7 @@
     "title": "Network Story — Outbound to IP List",
     "category": "network",
     "platforms": ["xql", "kql", "spl"],
+    "verified": ["xql"],
     "description": "Network activity to any of a list of suspicious remote IPs — use for bulk IOC sweeps",
     "file": "quicktrace/network/network-outbound-ip-list.yaml"
   },
@@ -38,6 +43,7 @@
     "title": "Suspicious PowerShell EncodedCommand Activity",
     "category": "endpoint",
     "platforms": ["xql", "kql", "spl"],
+    "verified": ["xql"],
     "description": "Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line",
     "file": "quicktrace/endpoint/ps-encodedcommand.yaml"
   }

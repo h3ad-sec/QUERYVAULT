@@ -1,6 +1,7 @@
 title: Auth Story — User Failure Triage
 category: auth
 platforms: xql,kql,spl
+verified: xql
 description: Failed auth attempts for a specific user — use for brute force or credential stuffing investigation
 queries:
   xql: |

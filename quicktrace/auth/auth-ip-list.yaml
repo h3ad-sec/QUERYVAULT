@@ -1,6 +1,7 @@
 title: Auth Story — IP List
 category: auth
 platforms: xql,kql,spl
+verified: xql
 description: All auth events from a list of suspicious IPs — use for IOC-based user pivoting
 queries:
   xql: |

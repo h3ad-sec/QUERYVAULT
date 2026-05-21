@@ -1,6 +1,7 @@
 title: Network Story — Outbound to IP List
 category: network
 platforms: xql,kql,spl
+verified: xql
 description: Network activity to any of a list of suspicious remote IPs — use for bulk IOC sweeps
 queries:
   xql: |

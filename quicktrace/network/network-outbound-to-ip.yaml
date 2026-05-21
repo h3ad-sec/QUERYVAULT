@@ -1,6 +1,7 @@
 title: Network Story — Outbound to IP
 category: network
 platforms: xql,kql,spl
+verified: xql
 description: All network events to a specific remote IP — use for C2, exfil, or lateral movement investigation
 queries:
   xql: |
