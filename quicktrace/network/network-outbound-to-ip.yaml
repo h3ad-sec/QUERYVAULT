@@ -1,4 +1,4 @@
-title: Network Story — Outbound to IP
+title: Outbound Connections to Remote IP
 category: network
 platforms: xql,kql,spl
 verified: xql

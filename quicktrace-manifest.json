@@ -1,6 +1,6 @@
 [
   {
-    "title": "Auth Story — User from Specific IP",
+    "title": "User Auth History by Source IP",
     "category": "auth",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],
@@ -8,7 +8,7 @@
     "file": "quicktrace/auth/auth-user-from-ip.yaml"
   },
   {
-    "title": "Auth Story — IP List",
+    "title": "Auth Events Across Suspicious IP List",
     "category": "auth",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],
@@ -16,7 +16,7 @@
     "file": "quicktrace/auth/auth-ip-list.yaml"
   },
   {
-    "title": "Auth Story — User Failure Triage",
+    "title": "Failed Auth Attempts by User",
     "category": "auth",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],
@@ -24,7 +24,7 @@
     "file": "quicktrace/auth/auth-user-failures.yaml"
   },
   {
-    "title": "Network Story — Outbound to IP",
+    "title": "Outbound Connections to Remote IP",
     "category": "network",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],
@@ -32,7 +32,7 @@
     "file": "quicktrace/network/network-outbound-to-ip.yaml"
   },
   {
-    "title": "Network Story — Outbound to IP List",
+    "title": "Outbound Connections to IP List",
     "category": "network",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],
@@ -40,7 +40,7 @@
     "file": "quicktrace/network/network-outbound-ip-list.yaml"
   },
   {
-    "title": "Suspicious PowerShell EncodedCommand Activity",
+    "title": "PowerShell Encoded Command Execution",
     "category": "endpoint",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],

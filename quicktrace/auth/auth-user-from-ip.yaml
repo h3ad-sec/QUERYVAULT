@@ -1,4 +1,4 @@
-title: Auth Story — User from Specific IP
+title: User Auth History by Source IP
 category: auth
 platforms: xql,kql,spl
 verified: xql

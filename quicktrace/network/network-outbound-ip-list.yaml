@@ -1,4 +1,4 @@
-title: Network Story — Outbound to IP List
+title: Outbound Connections to IP List
 category: network
 platforms: xql,kql,spl
 verified: xql

@@ -1,4 +1,4 @@
-title: Auth Story — User Failure Triage
+title: Failed Auth Attempts by User
 category: auth
 platforms: xql,kql,spl
 verified: xql
