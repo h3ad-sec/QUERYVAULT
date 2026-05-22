@@ -58,6 +58,8 @@ for (const platform of detectionPlatforms) {
       techniqueName: raw.techniqueName || '',
       description:   raw.description   || '',
       platform,
+      platforms:     raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : [platform],
+      verified:      raw.verified  ? raw.verified.split(',').map(p => p.trim()) : [platform],
       file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
     });
   }
@@ -107,6 +109,8 @@ for (const filePath of pulseFiles) {
     cve:         raw.cve         || '',
     date:        raw.date        || '',
     platform:    raw.platform    || '',
+    platforms:   raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
+    verified:    raw.verified  ? raw.verified.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
     description: raw.description || '',
     file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
   });

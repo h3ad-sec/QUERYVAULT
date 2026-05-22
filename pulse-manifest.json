@@ -5,6 +5,8 @@
     "cve": "CVE-2025-29824",
     "date": "2025-04-08",
     "platform": "kql",
+    "platforms": ["kql"],
+    "verified": ["kql"],
     "description": "Detects exploitation of Windows CLFS driver vulnerability used for LPE by Storm-2460 threat actor",
     "file": "pulse/2025/CVE-2025-29824.yaml"
   },
@@ -14,6 +16,8 @@
     "cve": "",
     "date": "2026-05-21",
     "platform": "xql",
+    "platforms": ["xql"],
+    "verified": ["xql"],
     "description": "Hunt for PowerShell encoded command execution — common obfuscation technique used by loaders, stagers, and post-exploitation frameworks",
     "file": "hunt/2026/ps-encodedcommand-hunt.yaml"
   }

@@ -7,6 +7,8 @@
     "techniqueName": "PowerShell",
     "description": "Detects base64-encoded PowerShell commands executed via DeviceProcessEvents in Microsoft Defender for Endpoint",
     "platform": "kql",
+    "platforms": ["kql"],
+    "verified": ["kql"],
     "file": "detections/kql/ps-encoded-execution.yaml"
   },
   {
@@ -17,6 +19,8 @@
     "techniqueName": "LSASS Memory",
     "description": "Identifies processes opening a handle to LSASS with suspicious access rights indicative of credential dumping",
     "platform": "kql",
+    "platforms": ["kql"],
+    "verified": ["kql"],
     "file": "detections/kql/lsass-memory-access.yaml"
   },
   {
@@ -27,6 +31,8 @@
     "techniqueName": "Scheduled Task",
     "description": "Detects scheduled task creation via schtasks.exe with suspicious arguments pointing to temp or user-writable paths",
     "platform": "kql",
+    "platforms": ["kql"],
+    "verified": ["kql"],
     "file": "detections/kql/scheduled-task-creation.yaml"
   },
   {
@@ -37,6 +43,8 @@
     "techniqueName": "LSASS Memory",
     "description": "Detects Mimikatz sekurlsa module usage by matching known command-line patterns in process creation events",
     "platform": "sigma",
+    "platforms": ["sigma"],
+    "verified": ["sigma"],
     "file": "detections/sigma/mimikatz-sekurlsa.yaml"
   },
   {
@@ -47,6 +55,8 @@
     "techniqueName": "SMB/Windows Admin Shares",
     "description": "Detects PsExec usage for remote lateral movement by identifying PSEXESVC service creation in Windows System event logs",
     "platform": "sigma",
+    "platforms": ["sigma"],
+    "verified": ["sigma"],
     "file": "detections/sigma/psexec-lateral-movement.yaml"
   },
   {
@@ -57,6 +67,8 @@
     "techniqueName": "DNS",
     "description": "Detects unusually long DNS query names or high query volumes to a single domain indicative of DNS-based data exfiltration or C2 tunneling",
     "platform": "xql",
+    "platforms": ["xql"],
+    "verified": ["xql"],
     "file": "detections/xql/dns-tunneling.yaml"
   },
   {
@@ -67,6 +79,8 @@
     "techniqueName": "Web Protocols",
     "description": "Identifies hosts making highly regular outbound HTTP/S connections suggesting C2 beaconing behavior based on low inter-request deviation",
     "platform": "xql",
+    "platforms": ["xql"],
+    "verified": ["xql"],
     "file": "detections/xql/network-beaconing.yaml"
   }
 ]
