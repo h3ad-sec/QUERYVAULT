@@ -1,0 +1,11 @@
+title: Parent Process Chain by File Hash
+category: endpoint
+platforms: xql
+verified: xql
+description: Trace the actor and causality process chain for a file hash to identify execution origin, dropper, or loader responsible for delivery
+queries:
+  xql: |
+    dataset = xdr_data
+    | filter action_file_sha256 = "<SHA256_HASH>"
+    | fields agent_hostname, actor_process_image_name, actor_process_command_line, causality_actor_process_image_name, causality_actor_process_command_line, _time
+    | sort desc _time

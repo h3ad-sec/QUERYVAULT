@@ -1,0 +1,11 @@
+title: File First Seen by Hash
+category: endpoint
+platforms: xql
+verified: xql
+description: Identify the earliest observed occurrence of a file by SHA256 hash to establish initial infection point and patient-zero host
+queries:
+  xql: |
+    dataset = xdr_data
+    | filter action_file_sha256 = "<SHA256_HASH>"
+    | sort asc _time
+    | fields agent_hostname, action_file_name, action_file_path, _time

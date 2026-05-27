@@ -40,11 +40,59 @@
     "file": "quicktrace/network/network-outbound-ip-list.yaml"
   },
   {
+    "title": "Suspicious Process Network Connections",
+    "category": "network",
+    "platforms": ["xql"],
+    "verified": ["xql"],
+    "description": "List outbound network connections made by a specific process to identify C2 beaconing, lateral movement, or data exfiltration",
+    "file": "quicktrace/network/process-network-connections.yaml"
+  },
+  {
     "title": "PowerShell Encoded Command Execution",
     "category": "endpoint",
     "platforms": ["xql", "kql", "spl"],
     "verified": ["xql"],
     "description": "Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line",
     "file": "quicktrace/endpoint/ps-encodedcommand.yaml"
+  },
+  {
+    "title": "File First Seen by Hash",
+    "category": "endpoint",
+    "platforms": ["xql"],
+    "verified": ["xql"],
+    "description": "Identify the earliest observed occurrence of a file by SHA256 hash to establish initial infection point and patient-zero host",
+    "file": "quicktrace/endpoint/file-first-seen-by-hash.yaml"
+  },
+  {
+    "title": "Endpoint Sweep by File Hash",
+    "category": "endpoint",
+    "platforms": ["xql"],
+    "verified": ["xql"],
+    "description": "Sweep all endpoints for a specific file by SHA256 hash to determine blast radius and total scope of exposure, deduplicated per host",
+    "file": "quicktrace/endpoint/endpoint-sweep-by-hash.yaml"
+  },
+  {
+    "title": "Parent Process Chain by File Hash",
+    "category": "endpoint",
+    "platforms": ["xql"],
+    "verified": ["xql"],
+    "description": "Trace the actor and causality process chain for a file hash to identify execution origin, dropper, or loader responsible for delivery",
+    "file": "quicktrace/endpoint/parent-process-chain-by-hash.yaml"
+  },
+  {
+    "title": "Executable Executions by File Hash",
+    "category": "endpoint",
+    "platforms": ["xql"],
+    "verified": ["xql"],
+    "description": "Find all execution instances of a suspicious binary by SHA256 hash, including spawned child processes and all observed execution paths",
+    "file": "quicktrace/endpoint/executable-executions-by-hash.yaml"
+  },
+  {
+    "title": "Daily Ingestion Volume Trend",
+    "category": "siem",
+    "platforms": ["xql"],
+    "verified": ["xql"],
+    "description": "Measure daily data ingestion in GB over a time range to surface volume anomalies, growth spikes, or unexpected drops",
+    "file": "quicktrace/siem/daily-ingestion-trend.yaml"
   }
 ]

@@ -1,0 +1,11 @@
+title: Endpoint Sweep by File Hash
+category: endpoint
+platforms: xql
+verified: xql
+description: Sweep all endpoints for a specific file by SHA256 hash to determine blast radius and total scope of exposure, deduplicated per host
+queries:
+  xql: |
+    dataset = xdr_data
+    | filter action_file_sha256 = "<SHA256_HASH>"
+    | fields agent_hostname, action_file_path, _time
+    | dedup agent_hostname

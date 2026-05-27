@@ -1,0 +1,15 @@
+title: Daily Ingestion Volume Trend
+category: siem
+platforms: xql
+verified: xql
+description: Measure daily data ingestion in GB over a time range to surface volume anomalies, growth spikes, or unexpected drops
+queries:
+  xql: |
+    preset = metrics_view
+    | bin _time span = 1d
+    | alter day_date = format_timestamp("%d-%m-%Y", _time, "+00:00")
+    | comp sum(total_size_bytes) as daily_ingested_bytes by day_date
+    | alter daily_ingestion_gb = divide(daily_ingested_bytes, 1073741824)
+    | alter Ingestion_in_GB = divide(round(multiply(daily_ingestion_gb, 100)), 100)
+    | fields day_date, Ingestion_in_GB
+    | sort asc day_date

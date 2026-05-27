@@ -1,0 +1,11 @@
+title: Suspicious Process Network Connections
+category: network
+platforms: xql
+verified: xql
+description: List outbound network connections made by a specific process to identify C2 beaconing, lateral movement, or data exfiltration
+queries:
+  xql: |
+    dataset = xdr_data
+    | filter event_type in (ENUM.NETWORK)
+    | filter actor_process_image_name in ("<PROCESS_NAME_1>", "<PROCESS_NAME_2>")
+    | fields agent_hostname, actor_process_image_name, actor_process_command_line, action_remote_ip, action_remote_port, action_network_protocol, _time

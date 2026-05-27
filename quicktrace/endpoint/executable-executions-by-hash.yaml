@@ -1,0 +1,10 @@
+title: Executable Executions by File Hash
+category: endpoint
+platforms: xql
+verified: xql
+description: Find all execution instances of a suspicious binary by SHA256 hash, including spawned child processes and all observed execution paths
+queries:
+  xql: |
+    dataset = xdr_data
+    | filter action_file_sha256 = "<SHA256_HASH>"
+    | fields agent_hostname, actor_process_image_name, actor_process_command_line, action_file_name, action_file_path, action_process_image_name, action_process_image_path, _time

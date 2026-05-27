@@ -72,7 +72,7 @@ fs.writeFileSync(
 console.log(`detections-manifest.json — ${detections.length} entries`);
 
 // ── quicktrace-manifest.json ──────────────────────────────────────────────────
-const quicktraceCategories = ['auth', 'network', 'endpoint', 'cloud'];
+const quicktraceCategories = ['auth', 'network', 'endpoint', 'cloud', 'siem'];
 const quicktrace = [];
 
 for (const cat of quicktraceCategories) {
