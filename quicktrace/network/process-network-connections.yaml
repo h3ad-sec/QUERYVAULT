@@ -2,6 +2,12 @@ title: Suspicious Process Network Connections
 category: network
 platforms: xql
 verified: xql
+tactic: TA0011
+tacticName: Command and Control
+technique: T1071
+techniqueName: Application Layer Protocol
+tags: network,process-pivot,beaconing,cortex-xdr
+date_added: 2026-05-28
 description: List outbound network connections made by a specific process to identify C2 beaconing, lateral movement, or data exfiltration
 queries:
   xql: |

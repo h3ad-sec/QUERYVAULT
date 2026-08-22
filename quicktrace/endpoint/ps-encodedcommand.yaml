@@ -2,6 +2,12 @@ title: PowerShell Encoded Command Execution
 category: endpoint
 platforms: xql,kql,spl
 verified: xql
+tactic: TA0002
+tacticName: Execution
+technique: T1059.001
+techniqueName: PowerShell
+tags: powershell,obfuscation,execution
+date_added: 2026-05-21
 description: Identify PowerShell processes launched with encoded command flags (-enc/-encodedcommand), deduplicated by command line
 queries:
   xql: |

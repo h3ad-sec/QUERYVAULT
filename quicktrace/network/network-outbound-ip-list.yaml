@@ -2,6 +2,12 @@ title: Outbound Connections to IP List
 category: network
 platforms: xql,kql,spl
 verified: xql
+tactic: TA0011
+tacticName: Command and Control
+technique: T1071
+techniqueName: Application Layer Protocol
+tags: network,ioc-sweep,bulk-pivot
+date_added: 2026-05-21
 description: Network activity to any of a list of suspicious remote IPs — use for bulk IOC sweeps
 queries:
   xql: |

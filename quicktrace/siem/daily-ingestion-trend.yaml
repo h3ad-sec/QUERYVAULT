@@ -2,6 +2,8 @@ title: Daily Ingestion Volume Trend
 category: siem
 platforms: xql
 verified: xql
+tags: siem-health,ingestion,capacity,ops
+date_added: 2026-05-28
 description: Measure daily data ingestion in GB over a time range to surface volume anomalies, growth spikes, or unexpected drops
 queries:
   xql: |

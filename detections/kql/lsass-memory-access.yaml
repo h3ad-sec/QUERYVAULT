@@ -1,8 +1,10 @@
 title: LSASS Memory Access
+category: endpoint
 tactic: TA0006
 tacticName: Credential Access
 technique: T1003.001
 techniqueName: LSASS Memory
+tags: credential-dumping,lsass,edr,mde
 description: Identifies processes opening a handle to LSASS with suspicious access rights indicative of credential dumping
 query: |
   DeviceEvents

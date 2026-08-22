@@ -2,6 +2,12 @@ title: Auth Events Across Suspicious IP List
 category: auth
 platforms: xql,kql,spl
 verified: xql
+tactic: TA0006
+tacticName: Credential Access
+technique: T1078
+techniqueName: Valid Accounts
+tags: auth,ioc-sweep,bulk-pivot,entra-id
+date_added: 2026-05-21
 description: All auth events from a list of suspicious IPs — use for IOC-based user pivoting
 queries:
   xql: |

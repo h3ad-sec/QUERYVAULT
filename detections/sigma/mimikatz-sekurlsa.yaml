@@ -1,8 +1,10 @@
 title: Mimikatz Credential Harvesting
+category: endpoint
 tactic: TA0006
 tacticName: Credential Access
 technique: T1003.001
 techniqueName: LSASS Memory
+tags: mimikatz,credential-dumping,sigma,red-team
 description: Detects Mimikatz sekurlsa module usage by matching known command-line patterns in process creation events
 query: |
   title: Mimikatz Credential Harvesting via sekurlsa

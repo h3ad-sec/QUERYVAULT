@@ -2,6 +2,12 @@ title: Parent Process Chain by File Hash
 category: endpoint
 platforms: xql
 verified: xql
+tactic: TA0002
+tacticName: Execution
+technique: T1204
+techniqueName: User Execution
+tags: hash-pivot,process-chain,causality,endpoint
+date_added: 2026-05-28
 description: Trace the actor and causality process chain for a file hash to identify execution origin, dropper, or loader responsible for delivery
 queries:
   xql: |

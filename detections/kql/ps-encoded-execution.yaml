@@ -1,8 +1,10 @@
 title: Suspicious Encoded PowerShell Execution
+category: endpoint
 tactic: TA0002
 tacticName: Execution
 technique: T1059.001
 techniqueName: PowerShell
+tags: powershell,obfuscation,execution,mde
 description: Detects base64-encoded PowerShell commands executed via DeviceProcessEvents in Microsoft Defender for Endpoint
 query: |
   DeviceProcessEvents

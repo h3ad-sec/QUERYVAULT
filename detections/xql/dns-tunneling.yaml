@@ -1,8 +1,10 @@
 title: DNS Tunneling Detection
+category: network
 tactic: TA0011
 tacticName: Command and Control
 technique: T1071.004
 techniqueName: DNS
+tags: dns,tunneling,exfiltration,xdr,cortex
 description: Detects unusually long DNS query names or high query volumes to a single domain indicative of DNS-based data exfiltration or C2 tunneling
 query: |
   dataset = xdr_data

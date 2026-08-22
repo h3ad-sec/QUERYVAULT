@@ -1,8 +1,10 @@
 title: Suspicious Scheduled Task Creation
+category: endpoint
 tactic: TA0003
 tacticName: Persistence
 technique: T1053.005
 techniqueName: Scheduled Task
+tags: persistence,schtasks,living-off-the-land,mde
 description: Detects scheduled task creation via schtasks.exe with suspicious arguments pointing to temp or user-writable paths
 query: |
   DeviceProcessEvents

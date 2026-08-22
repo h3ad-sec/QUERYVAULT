@@ -2,6 +2,12 @@ title: Endpoint Sweep by File Hash
 category: endpoint
 platforms: xql
 verified: xql
+tactic: TA0008
+tacticName: Lateral Movement
+technique: T1570
+techniqueName: Lateral Tool Transfer
+tags: hash-pivot,blast-radius,ioc-sweep,endpoint
+date_added: 2026-05-28
 description: Sweep all endpoints for a specific file by SHA256 hash to determine blast radius and total scope of exposure, deduplicated per host
 queries:
   xql: |

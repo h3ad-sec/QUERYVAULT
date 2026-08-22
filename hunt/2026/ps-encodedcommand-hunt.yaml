@@ -1,5 +1,11 @@
 title: Suspicious PowerShell EncodedCommand Activity
 date: 2026-05-21
+category: endpoint
+tactic: TA0002
+tacticName: Execution
+technique: T1059.001
+techniqueName: PowerShell
+tags: powershell,obfuscation,hunt,threat-hunting
 platform: xql
 description: Hunt for PowerShell encoded command execution — common obfuscation technique used by loaders, stagers, and post-exploitation frameworks
 query: |

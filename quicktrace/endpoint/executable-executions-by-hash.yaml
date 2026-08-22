@@ -2,6 +2,12 @@ title: Executable Executions by File Hash
 category: endpoint
 platforms: xql
 verified: xql
+tactic: TA0002
+tacticName: Execution
+technique: T1204
+techniqueName: User Execution
+tags: hash-pivot,execution-history,endpoint
+date_added: 2026-05-28
 description: Find all execution instances of a suspicious binary by SHA256 hash, including spawned child processes and all observed execution paths
 queries:
   xql: |

@@ -2,6 +2,12 @@ title: Failed Auth Attempts by User
 category: auth
 platforms: xql,kql,spl
 verified: xql
+tactic: TA0006
+tacticName: Credential Access
+technique: T1110
+techniqueName: Brute Force
+tags: auth,brute-force,credential-stuffing,entra-id
+date_added: 2026-05-21
 description: Failed auth attempts for a specific user — use for brute force or credential stuffing investigation
 queries:
   xql: |

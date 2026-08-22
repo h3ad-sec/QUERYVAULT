@@ -2,6 +2,12 @@ title: Outbound Connections to Remote IP
 category: network
 platforms: xql,kql,spl
 verified: xql
+tactic: TA0011
+tacticName: Command and Control
+technique: T1071
+techniqueName: Application Layer Protocol
+tags: network,pivot,c2,exfil,ioc
+date_added: 2026-05-21
 description: All network events to a specific remote IP — use for C2, exfil, or lateral movement investigation
 queries:
   xql: |

@@ -42,6 +42,13 @@ function walkDirRecursive(dir) {
 
 const ROOT = __dirname;
 
+// ── shared metadata helpers ─────────────────────────────────────────────────
+// Common schema across detections / quicktrace / pulse / hunt:
+//   category, tactic, tacticName, technique, techniqueName, tags, platforms, verified
+function splitList(val) {
+  return val ? val.split(',').map(s => s.trim()).filter(Boolean) : [];
+}
+
 // ── detections-manifest.json ──────────────────────────────────────────────────
 const detectionPlatforms = ['kql', 'sigma', 'xql'];
 const detections = [];
@@ -52,14 +59,16 @@ for (const platform of detectionPlatforms) {
     const raw = parseYaml(filePath);
     detections.push({
       title:         raw.title         || '',
+      category:      raw.category      || '',
       tactic:        raw.tactic        || '',
       tacticName:    raw.tacticName    || '',
       technique:     raw.technique     || '',
       techniqueName: raw.techniqueName || '',
+      tags:          splitList(raw.tags),
       description:   raw.description   || '',
       platform,
-      platforms:     raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : [platform],
-      verified:      raw.verified  ? raw.verified.split(',').map(p => p.trim()) : [platform],
+      platforms:     raw.platforms ? splitList(raw.platforms) : [platform],
+      verified:      raw.verified  ? splitList(raw.verified) : [platform],
       file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
     });
   }
@@ -72,7 +81,10 @@ fs.writeFileSync(
 console.log(`detections-manifest.json — ${detections.length} entries`);
 
 // ── quicktrace-manifest.json ──────────────────────────────────────────────────
-const quicktraceCategories = ['auth', 'network', 'endpoint', 'cloud', 'siem'];
+const quicktraceCategories = [
+  'auth', 'network', 'endpoint', 'cloud', 'siem',
+  'identity', 'application-identities', 'oauth', 'email', 'collaboration'
+];
 const quicktrace = [];
 
 for (const cat of quicktraceCategories) {
@@ -80,11 +92,17 @@ for (const cat of quicktraceCategories) {
   for (const filePath of walkDir(dir)) {
     const raw = parseYaml(filePath);
     quicktrace.push({
-      title:       raw.title       || '',
-      category:    raw.category    || cat,
-      platforms:   raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
-      verified:    raw.verified  ? raw.verified.split(',').map(p => p.trim()) : [],
-      description: raw.description || '',
+      title:         raw.title         || '',
+      category:      raw.category      || cat,
+      tactic:        raw.tactic        || '',
+      tacticName:    raw.tacticName    || '',
+      technique:     raw.technique     || '',
+      techniqueName: raw.techniqueName || '',
+      tags:          splitList(raw.tags),
+      platforms:     raw.platforms ? splitList(raw.platforms) : (raw.platform ? [raw.platform] : []),
+      verified:      raw.verified  ? splitList(raw.verified) : [],
+      description:   raw.description   || '',
+      dateAdded:     raw.date_added    || '',
       file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
     });
   }
@@ -97,21 +115,30 @@ fs.writeFileSync(
 console.log(`quicktrace-manifest.json — ${quicktrace.length} entries`);
 
 // ── pulse-manifest.json ───────────────────────────────────────────────────────
-const pulseDir = path.join(ROOT, 'pulse');
-const pulseFiles = walkDirRecursive(pulseDir);
+// Includes both pulse/ (CVE / threat-actor intel) and hunt/ (generic hunt queries)
+const pulseFiles = [
+  ...walkDirRecursive(path.join(ROOT, 'pulse')),
+  ...walkDirRecursive(path.join(ROOT, 'hunt')),
+];
 const pulse = [];
 
 for (const filePath of pulseFiles) {
   const raw = parseYaml(filePath);
   pulse.push({
-    title:       raw.title       || '',
-    threat:      raw.threat      || '',
-    cve:         raw.cve         || '',
-    date:        raw.date        || '',
-    platform:    raw.platform    || '',
-    platforms:   raw.platforms ? raw.platforms.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
-    verified:    raw.verified  ? raw.verified.split(',').map(p => p.trim()) : (raw.platform ? [raw.platform] : []),
-    description: raw.description || '',
+    title:         raw.title         || '',
+    threat:        raw.threat        || '',
+    cve:           raw.cve           || '',
+    date:          raw.date          || '',
+    category:      raw.category      || '',
+    tactic:        raw.tactic        || '',
+    tacticName:    raw.tacticName    || '',
+    technique:     raw.technique     || '',
+    techniqueName: raw.techniqueName || '',
+    tags:          splitList(raw.tags),
+    platform:      raw.platform      || '',
+    platforms:     raw.platforms ? splitList(raw.platforms) : (raw.platform ? [raw.platform] : []),
+    verified:      raw.verified  ? splitList(raw.verified) : (raw.platform ? [raw.platform] : []),
+    description:   raw.description   || '',
     file: path.relative(ROOT, filePath).replace(/\\/g, '/'),
   });
 }

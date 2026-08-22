@@ -1,8 +1,10 @@
 title: PsExec Remote Execution
+category: network
 tactic: TA0008
 tacticName: Lateral Movement
 technique: T1021.002
 techniqueName: SMB/Windows Admin Shares
+tags: psexec,lateral-movement,smb,sigma
 description: Detects PsExec usage for remote lateral movement by identifying PSEXESVC service creation in Windows System event logs
 query: |
   title: PsExec Remote Execution via Service Creation

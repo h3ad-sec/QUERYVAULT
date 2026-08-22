@@ -1,8 +1,10 @@
 title: Periodic Network Beaconing Activity
+category: network
 tactic: TA0011
 tacticName: Command and Control
 technique: T1071.001
 techniqueName: Web Protocols
+tags: beaconing,c2,xdr,cortex
 description: Identifies hosts making highly regular outbound HTTP/S connections suggesting C2 beaconing behavior based on low inter-request deviation
 query: |
   dataset = xdr_data
