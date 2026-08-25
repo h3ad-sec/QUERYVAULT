@@ -1,0 +1,26 @@
+title: Network Connections to Phishing Domain or C2 IP
+category: email
+platforms: spl,xql
+verified: xql
+tactic: TA0011
+tacticName: Command and Control
+technique: T1071.001
+techniqueName: Application Layer Protocol: Web Protocols
+tags: phishing,network,proxy,c2,egress
+date_added: 2026-08-25
+description: Outbound connections from an endpoint to a known phishing domain or C2 IP — confirms whether a user's machine actually reached attacker infrastructure
+queries:
+  spl: |
+    index=proxy src_ip="<endpoint_ip>"
+    | search url="*<phishing_domain>*"
+    | table _time src_ip dest_host url http_method http_status bytes_out
+    | sort -_time
+  xql: |
+    config timeframe = 24h;
+    dataset = xdr_data
+    | filter event_type = "NETWORK"
+        and (action_remote_ip = "<c2_ip>"
+             or dns_query_name contains "<phishing_domain>")
+    | fields _time, agent_hostname, actor_process_image_name,
+             action_remote_ip, dns_query_name, action_remote_port
+    | sort desc _time

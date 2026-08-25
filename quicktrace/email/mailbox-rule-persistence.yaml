@@ -1,0 +1,20 @@
+title: Mailbox Rule Creation (Persistence/Exfil)
+category: email
+platforms: kql
+verified: kql
+tactic: TA0003
+tacticName: Persistence
+technique: T1114.003
+techniqueName: Email Forwarding Rule
+tags: phishing,persistence,mailbox-rule,exfil,m365
+date_added: 2026-08-25
+description: New or modified inbox rules for a compromised user — a common post-compromise persistence and exfiltration mechanism after a successful phish
+queries:
+  kql: |
+    CloudAppEvents
+    | where Timestamp > ago(24h)
+    | where ActionType in ("New-InboxRule","Set-InboxRule")
+    | where AccountDisplayName =~ "<user_upn>"
+    | extend RuleDetails = todynamic(RawEventData)
+    | project Timestamp, AccountDisplayName, ActionType,
+              RuleDetails.Parameters, IPAddress

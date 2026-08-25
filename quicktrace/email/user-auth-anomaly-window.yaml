@@ -1,0 +1,35 @@
+title: User Auth Events in a Defined Window
+category: email
+platforms: kql,spl,xql
+verified: xql
+tactic: TA0006
+tacticName: Credential Access
+technique: T1078
+techniqueName: Valid Accounts
+tags: phishing,auth-anomaly,post-click,okta,entra-id,cortex
+date_added: 2026-08-25
+description: Sign-in / auth events for a specific user in a defined time window — use to confirm whether a phishing click led to anomalous authentication
+queries:
+  kql: |
+    SigninLogs
+    | where TimeGenerated between (datetime(<start_time>) .. datetime(<end_time>))
+    | where UserPrincipalName =~ "<user_upn>"
+    | where ResultType != "0"
+    | project TimeGenerated, UserPrincipalName, IPAddress,
+              Location, AppDisplayName, ResultType, ResultDescription
+    | sort by TimeGenerated asc
+  spl: |
+    index=okta sourcetype=OktaIM2:log actor.alternateId="<user_upn>"
+    | eval event_time=strftime(_time,"%Y-%m-%dT%H:%M:%SZ")
+    | table event_time actor.alternateId client.ipAddress
+            client.geographicalContext.country
+            outcome.result displayMessage authenticationContext.authenticationStep
+    | sort -_time
+  xql: |
+    config timeframe = 4h;
+    dataset = xdr_data
+    | filter event_type = "AUTH"
+        and actor_effective_username = "<user_upn>"
+    | fields _time, actor_effective_username, action_remote_ip,
+             action_country, outcome, event_sub_type
+    | sort desc _time

@@ -1,0 +1,17 @@
+title: URL Clicks to Phishing Domain
+category: email
+platforms: kql
+verified: kql
+tactic: TA0002
+tacticName: Execution
+technique: T1204.001
+techniqueName: User Execution: Malicious Link
+tags: phishing,url-click,safe-links,m365
+date_added: 2026-08-25
+description: Every user who clicked a link to a known phishing domain in the last 48h, via Safe Links / Defender URL click telemetry
+queries:
+  kql: |
+    UrlClickEvents
+    | where Timestamp > ago(48h)
+    | where Url contains "<phishing_domain>"
+    | project Timestamp, AccountUpn, Url, ActionType, IsClickedThrough, IPAddress

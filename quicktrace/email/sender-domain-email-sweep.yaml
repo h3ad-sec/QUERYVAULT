@@ -1,0 +1,22 @@
+title: Emails from Suspicious Sender Domain
+category: email
+platforms: kql,spl
+verified: kql
+tactic: TA0001
+tacticName: Initial Access
+technique: T1566
+techniqueName: Phishing
+tags: phishing,email-sweep,sender-domain,m365,proofpoint
+date_added: 2026-08-25
+description: All emails delivered from a suspicious sender domain in the last 24h — use to scope a phishing campaign's blast radius
+queries:
+  kql: |
+    EmailEvents
+    | where Timestamp > ago(24h)
+    | where SenderMailFromDomain =~ "<sender_domain>"
+    | project Timestamp, SenderFromAddress, RecipientEmailAddress,
+              Subject, DeliveryAction, ThreatTypes, EmailDirection
+  spl: |
+    index=email sourcetype=proofpoint sender_domain="<sender_domain>"
+    | table _time sender recipient subject action_dispo threatsInfoMap
+    | sort -_time

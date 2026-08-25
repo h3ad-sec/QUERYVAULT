@@ -1,0 +1,20 @@
+title: New-Country Sign-In After Email Receipt
+category: email
+platforms: kql
+verified: kql
+tactic: TA0006
+tacticName: Credential Access
+technique: T1078.004
+techniqueName: Valid Accounts: Cloud Accounts
+tags: phishing,session-hijack,impossible-travel,post-click,entra-id
+date_added: 2026-08-25
+description: New-country sign-ins for a user within hours of receiving a phishing email — flags session token theft or a successful post-click compromise
+queries:
+  kql: |
+    SigninLogs
+    | where TimeGenerated > ago(4h)
+    | where UserPrincipalName =~ "<user_upn>"
+    | extend Country = tostring(LocationDetails.countryOrRegion)
+    | where Country !in ("<expected_country_1>", "<expected_country_2>")
+    | project TimeGenerated, UserPrincipalName, IPAddress,
+              Country, AppDisplayName, UserAgent
